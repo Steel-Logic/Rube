@@ -92,17 +92,17 @@ public class Rotate : MonoBehaviour
 				case 'x':					
 					pivotPoint.transform.position = ParentObject.transform.position;
 					pivotPoint.transform.parent = ParentObject.transform;
-					pivotPoint.transform.localPosition = new Vector3(facePosition, -1.0f, 0.0f); // (facePosition, -1.0f, 0.0f);
+					pivotPoint.transform.localPosition = new Vector3(facePosition, 0.0f, 1.0f); // (facePosition, 0.0f, 1.0f);
 				break;
 				case 'y':								
 					pivotPoint.transform.position = ParentObject.transform.position;
 					pivotPoint.transform.parent = ParentObject.transform;
-					pivotPoint.transform.localPosition = new Vector3(-1.0f, facePosition, 0.0f); // (-1.0f, facePosition, 0.0f);
+					pivotPoint.transform.localPosition = new Vector3(1.0f, facePosition, 1.0f); // (1.0f, facePosition, 1.0f);
 				break;
 				case 'z':
 					pivotPoint.transform.position = ParentObject.transform.position;
 					pivotPoint.transform.parent = ParentObject.transform;
-					pivotPoint.transform.localPosition = new Vector3(-1.0f, -1.0f, facePosition); // (-1.0f, -1.0f, facePosition);
+					pivotPoint.transform.localPosition = new Vector3(1.0f, 0.0f, facePosition); // (1.0f, 0.0f, facePosition);
 				break;
 			}
 		}

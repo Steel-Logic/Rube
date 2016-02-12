@@ -40,7 +40,7 @@ public class Controls : MonoBehaviour {
 					Debug.Log("X: " + (hit.transform.position.x - hit.transform.parent.transform.position.x) + " Y: " + (hit.transform.position.y - hit.transform.parent.transform.position.y) + " Z: " + (hit.transform.position.z - hit.transform.parent.transform.position.z));
 
 					// Logic to calculate which face has been hit
-					if((hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0f) && (hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0f))
+					if(hit.transform.position.x - hit.transform.parent.transform.position.x != 0.0f)// && (hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0f))
 					{
 						faceHit = 'x';
 						rotationVector = Vector3.right;
@@ -48,7 +48,7 @@ public class Controls : MonoBehaviour {
 								if(hit.transform.position.x - hit.transform.parent.transform.position.x > 0){facePosition = 1.0f;}
 						else 	if(hit.transform.position.x - hit.transform.parent.transform.position.x < 0){facePosition = -1.0f;}
 					}
-					else if((hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0f) && (hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0f))
+					else if(hit.transform.position.y - hit.transform.parent.transform.position.y != 0.0f)// && (hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0f))
 					{
 						faceHit = 'y';
 						rotationVector = Vector3.up;
@@ -56,7 +56,7 @@ public class Controls : MonoBehaviour {
 								if(hit.transform.position.y - hit.transform.parent.transform.position.y > 0){facePosition = 1.0f;}
 						else 	if(hit.transform.position.y - hit.transform.parent.transform.position.y < 0){facePosition = -1.0f;}
 					}
-					else if((hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0f) && (hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0f))
+					else if(hit.transform.position.z - hit.transform.parent.transform.position.z != 0.0f)// && (hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0f))
 					{
 						faceHit = 'z';
 						rotationVector = Vector3.forward;
