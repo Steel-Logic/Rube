@@ -113,12 +113,12 @@ public class AstarAI : MonoBehaviour
 			//Start a new path to the targetPosition, return the result to the OnPathComplete function
 			seeker.StartPath (transform.position, targetPosition, OnPathComplete);
 		}
-		if (currentWayPoint >= path.vectorPath.Count) 
-		{
+		//if (currentWayPoint >= path.vectorPath.Count) 
+		//{
 			//Debug.Log("End of Path Reached");
 
-			return;
-		}
+			//return;
+		//}
 
 		previousLocation = currentLocation;    
 		currentLocation = transform.position;

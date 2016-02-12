@@ -1,57 +1,53 @@
-﻿// Written by Stuart McEwan - 1302856
-// Steel Logic
-// Rube
-// Controls.cs
+﻿/*
+Stuart McEwan
+1302856
+*/
 
 using UnityEngine;
 using System.Collections;
-
-[AddComponentMenu("Scripts/Rotate")]
 
 public class Rotate : MonoBehaviour
 {	
 	
 	// Enumerators
-	/*public enum FaceRotating // Used to choose which face of the cube should be rotating
+	public enum FaceRotating // Used to choose which face of the cube should be rotating
 	{
 		NONE, FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM, MIDDLEX, MIDDLEY, MIDDLEZ
-	};*/
+	};
 	
-	/*public enum AxisRotating // Used to choose which axis a face of the cube should be rotating around
+	public enum AxisRotating // Used to choose which axis a face of the cube should be rotating around
 	{
 		NONE, X, Y, Z
-	};*/
-	
-	public bool isRotating;
+	};
 	
 	// Public
+	public GameObject RubixCube;
+	public GameObject ParentObject;
+
 	public float rotationSpeed;
 	
 	// Private
-	private GameObject ParentObject;
-
-	private char AxisRotating;	
-
 	private GameObject[] face;
 	private GameObject[] cube;
 	private GameObject[] obstacle;
 	private GameObject pivotPoint;
 	private double rotationCounter;
 	private double playerRotationCounter;
+	private bool isRotating;
 	private bool playerRotating;
 	private bool middleRotation;
 	
-	//private FaceRotating faceRotating;
-
-	private float facePosition;
-	
-    private char axisRotating;
-    private string hitTag, hitParentTag;
-	private Vector3 axisVector;
+	private FaceRotating faceRotating;
 	
 	// Use this for initialization
 	void Start()
 	{
+		// Tag all cubes in the rubix cube as "Cube" and fill the cube array with these objects
+		cube = GameObject.FindGameObjectsWithTag("Cube");
+
+
+
+
 		obstacle = GameObject.FindGameObjectsWithTag("Obstacle");
 
 		// 9 cubes per face
@@ -59,103 +55,68 @@ public class Rotate : MonoBehaviour
 		
 		rotationCounter = 0;
 
-		//rotationSpeed = 3f;
+		rotationSpeed = 3f;
 		
 		middleRotation = false;
 		playerRotating = false;
 		isRotating = false;
-		//faceRotating = FaceRotating.NONE;
+		faceRotating = FaceRotating.NONE;
 		
-		pivotPoint = new GameObject("pivot");
+
 	}
 	
 	// Called when the user presses the z key
-	public void RotateFace(Vector3 axisVector_, float facePosition_, char axisRotating_, string hitTag_, string hitParentTag_)
+	void RotateFace(Vector3 axisVector, float rotationVelocity, float facePosition, AxisRotating axisRotating)
 	{
-	
-        // Tag all cubes in the rubix cube as "Cube" and fill the cube array with these objects
-		axisVector = axisVector_;
-		facePosition = facePosition_;
-        axisRotating = axisRotating_;
-        hitTag = hitTag_;
-		hitParentTag = hitParentTag_;
-		cube = GameObject.FindGameObjectsWithTag(hitTag);
-		ParentObject = GameObject.FindGameObjectWithTag(hitParentTag);
-
-		if(facePosition == 0.0f){middleRotation = true;}
-
-		if (!isRotating)
-		{
-			// Set pivot point to position of centre cube relative to rotating face
-			switch(axisRotating)
-			{
-				case 'x':					
-					pivotPoint.transform.position = ParentObject.transform.position;
-					pivotPoint.transform.parent = ParentObject.transform;
-					pivotPoint.transform.localPosition = new Vector3(facePosition, 0.0f, 1.0f); // (facePosition, 0.0f, 1.0f);
-				break;
-				case 'y':								
-					pivotPoint.transform.position = ParentObject.transform.position;
-					pivotPoint.transform.parent = ParentObject.transform;
-					pivotPoint.transform.localPosition = new Vector3(1.0f, facePosition, 1.0f); // (1.0f, facePosition, 1.0f);
-				break;
-				case 'z':
-					pivotPoint.transform.position = ParentObject.transform.position;
-					pivotPoint.transform.parent = ParentObject.transform;
-					pivotPoint.transform.localPosition = new Vector3(1.0f, 0.0f, facePosition); // (1.0f, 0.0f, facePosition);
-				break;
-			}
-		}
-
 		for(int i = 0; i < 27; i++)
 		{
 			switch(axisRotating)
 			{
-			/*case AxisRotating.NONE:
-				break;*/
-			case 'x':
+			case AxisRotating.NONE:
+				break;
+			case AxisRotating.X:
 				if((cube[i].transform.localPosition.x >= facePosition - 0.1)&&(cube[i].transform.localPosition.x <= facePosition + 0.1))
 				{
-					isRotating = true;
-					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
-					rotationCounter+=rotationSpeed;
+					// Rotate the pivot point by 90 degrees around the specified vector ("axisVector")
+					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationVelocity);
+					rotationCounter+=rotationVelocity;
 				}
 
 				break;
-			case 'y':
+			case AxisRotating.Y:
 				if((cube[i].transform.localPosition.y >= facePosition - 0.1)&&(cube[i].transform.localPosition.y <= facePosition + 0.1))
-				{	
-					isRotating = true;				
-					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
-					rotationCounter+=rotationSpeed;
+				{
+					// Rotate the pivot point by 90 degrees around the specified vector ("axisVector")
+					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationVelocity);
+					rotationCounter+=rotationVelocity;
 				}
 		
 				break;
-			case 'z':
+			case AxisRotating.Z:
 				if((cube[i].transform.localPosition.z >= facePosition - 0.1)&&(cube[i].transform.localPosition.z <= facePosition + 0.1))
 				{
-					isRotating = true;
-					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
-					rotationCounter+=rotationSpeed;
-				}             			
+					// Rotate the pivot point by 90 degrees around the specified vector ("axisVector")
+					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationVelocity);
+					rotationCounter+=rotationVelocity;
+
+				}
+			
 				break;
-            default:
-                break;
 			}
 			
 			if (middleRotation == false) {
 				if(rotationCounter >= (90 * 9))
 				{
 					isRotating = false;
-					//faceRotating = FaceRotating.NONE;
-					//Destroy(pivotPoint);
+					faceRotating = FaceRotating.NONE;
+					Destroy(pivotPoint);
 					rotationCounter = 0;
 					middleRotation = false;
 					
-					/*if(pivotPoint)
+					if(pivotPoint != null)
 					{
 						Debug.Log("Pivot point still exists");
-					}*/			
+					}				
 				}
 			}
 			
@@ -163,15 +124,15 @@ public class Rotate : MonoBehaviour
 				if(rotationCounter >= (90 * 8))
 				{
 					isRotating = false;
-					//faceRotating = FaceRotating.NONE;
-					//Destroy(pivotPoint);
+					faceRotating = FaceRotating.NONE;
+					Destroy(pivotPoint);
 					rotationCounter = 0;
 					middleRotation = false;
 					
-					/*if(pivotPoint)
+					if(pivotPoint != null)
 					{
 						Debug.Log("Pivot point still exists");
-					}*/				
+					}				
 				}
 			}
 		}		
@@ -180,9 +141,6 @@ public class Rotate : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// Remove keyboard controls once mouse/touch input is working correctly - Stuart
-		// Start Keyboard Controls
-        /*
 		if((Input.GetKeyDown("z")) && (isRotating == false))
 		{
 			isRotating = true;
@@ -194,7 +152,7 @@ public class Rotate : MonoBehaviour
 			pivotPoint.transform.parent = ParentObject.transform;
 			pivotPoint.transform.localPosition = new Vector3(0.0f, 0.0f, -1.0f);
 		}
-
+		
 		if((Input.GetKeyDown("q")) && (isRotating == false))
 		{
 			isRotating = true;
@@ -293,13 +251,43 @@ public class Rotate : MonoBehaviour
 			pivotPoint.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 			middleRotation = true;
 		}
-        */
-		// End Keyboard Controls		
 		
 		if(isRotating == true)
 		{
-			// Possibly remove middle "face" rotation (?) - Stuart
-			RotateFace(axisVector, facePosition, axisRotating, hitTag, hitParentTag);
-        }
+			switch(faceRotating)
+			{
+			case FaceRotating.NONE:
+				break;
+			case FaceRotating.FRONT:
+				RotateFace(Vector3.forward, rotationSpeed, -1.0f, AxisRotating.Z);
+				break;
+			case FaceRotating.BACK:
+				RotateFace(Vector3.forward, rotationSpeed, 1.0f, AxisRotating.Z);
+				break;
+			case FaceRotating.LEFT:
+				RotateFace(Vector3.right, rotationSpeed, 1.0f, AxisRotating.X);
+				break;
+			case FaceRotating.RIGHT:
+				RotateFace(Vector3.right, rotationSpeed, -1.0f, AxisRotating.X);
+				break;
+			case FaceRotating.TOP:
+				RotateFace(Vector3.up, rotationSpeed, 1.0f, AxisRotating.Y);
+				break;
+			case FaceRotating.BOTTOM:
+				RotateFace(Vector3.up, rotationSpeed, -1.0f, AxisRotating.Y);
+				break;
+			case FaceRotating.MIDDLEX:
+				RotateFace(Vector3.right, rotationSpeed, 0.0f, AxisRotating.X);
+				break;
+			case FaceRotating.MIDDLEY:
+				RotateFace(Vector3.up, rotationSpeed, 0.0f, AxisRotating.Y);
+				break;
+			case FaceRotating.MIDDLEZ:
+				RotateFace(Vector3.forward, rotationSpeed, 0.0f, AxisRotating.Z);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 }

@@ -11,6 +11,7 @@ public class TeleportScript : MonoBehaviour {
 	
 	public MouseClickCameraMove script;
 	public HasPlayerFinishedTeleport script2;
+	public AIPath script3;
 
 	public bool PlayerMoving;
 		
@@ -26,6 +27,7 @@ public class TeleportScript : MonoBehaviour {
 				if (script.GetCameraPosition() == WantedCameraPosition) {
 					PlayerMoving = true;
 					script2.PlayerFinishedTeleport = false;
+					script3.enabled = false;
 				}
 			}
 		} else {

@@ -94,7 +94,7 @@ public class MouseClickCameraMove : MonoBehaviour
 
 			if (startTurning == true) {
 				if ((script.PlayerFinishedTeleport == true) && (script2.PlayerFinishedTeleport == true)) {
-					if (turningLeft) {
+					if (turningRight) {
 						if (counter < 90) {
 							transform.RotateAround (target.position, target.up, 1);
 							counter++;
@@ -108,7 +108,7 @@ public class MouseClickCameraMove : MonoBehaviour
 						}
 					
 					}
-					if (turningRight) {
+					if (turningLeft) {
 						if (counter < 90) {
 							transform.RotateAround (target.position, target.up, -1);
 							counter++;
