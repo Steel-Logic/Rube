@@ -122,9 +122,9 @@ public class AstarAI : MonoBehaviour
 
 		previousLocation = currentLocation;    
 		currentLocation = transform.position;
-
-		transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation(transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
-
+		if ((transform.position - previousLocation) != new Vector3 (0, 0, 0)) {
+			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
+		}
 		//Direction to the next waypoint
 		Vector3 direction = (path.vectorPath [currentWayPoint] - transform.position).normalized;
 		direction *= speed * Time.deltaTime;

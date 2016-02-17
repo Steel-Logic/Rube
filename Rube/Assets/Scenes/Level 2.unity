@@ -5458,7 +5458,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1091098840}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 6
   m_Type: 1
   m_Color: {r: .772774577, g: .160250857, b: .838235259, a: 1}
@@ -5643,6 +5643,7 @@ GameObject:
   - 114: {fileID: 1132003994}
   - 114: {fileID: 1132003996}
   - 114: {fileID: 1132003995}
+  - 114: {fileID: 1132003997}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -5712,6 +5713,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a58c2a1e1019ca341aa4613395bb0e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1132003997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1132003991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8829b489a850b4589cff8eec6cfc9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1139877245
