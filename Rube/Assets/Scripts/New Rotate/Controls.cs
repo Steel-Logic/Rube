@@ -7,7 +7,10 @@ using UnityEngine;
 using System.Collections;
 
 public class Controls : MonoBehaviour {
-	
+
+	// Public
+
+	// Private
 	private GameObject cubeSelected;	
 	private RaycastHit hit;
 	private Ray ray;
@@ -16,6 +19,26 @@ public class Controls : MonoBehaviour {
 	private Vector3 rotationVector;
 	private float facePosition;
 
+	// Enum
+	enum CubeHit // Depth, Height, Width (Z, Y, X)
+	{
+		// Front Slice
+		FrontTopLeft, FrontTopCentre, FrontTopRight,
+		FrontCentreLeft, FrontCentreCentre, FrontCentreRight,
+		FrontBottomLeft, FrontBottomCentre, FrontBottomRight,
+
+		// Centre Slice
+		CentreTopLeft, CentreTopCentre, CentreTopRight,
+		CentreCentreLeft, CentreCentreCentre, CentreCentreRight,
+		CentreBottomLeft, CentreBottomCentre, CentreBottomRight,
+
+		// Back Slice
+		BackTopLeft, BackTopCentre, BackTopRight,
+		BackCentreLeft, BackCentreCentre, BackCentreRight,
+		BackBottomLeft, BackBottomCentre, BackBottomRight
+	}
+
+	// Methods
 	// Use this for initialization
 	void Start ()
 	{
@@ -104,4 +127,6 @@ public class Controls : MonoBehaviour {
 	{
         TouchSelection();
 	}
+
+
 }
