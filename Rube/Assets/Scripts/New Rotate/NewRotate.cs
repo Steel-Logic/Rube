@@ -1,7 +1,7 @@
 ﻿// Written by Stuart McEwan - 1302856
 // Steel Logic
 // Rube
-// Controls.cs
+// Rotate.cs
 
 using UnityEngine;
 using System.Collections;
@@ -11,7 +11,7 @@ using System.Collections;
 public class NewRotate : MonoBehaviour
 {	
 	
-	// Enumerators
+	// Enum
 	/*public enum FaceRotating // Used to choose which face of the cube should be rotating
 	{
 		NONE, FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM, MIDDLEX, MIDDLEY, MIDDLEZ
@@ -65,8 +65,6 @@ public class NewRotate : MonoBehaviour
 		playerRotating = false;
 		isRotating = false;
 		//faceRotating = FaceRotating.NONE;
-		
-
 	}
 	
 	// Called when the user presses the z key
@@ -85,7 +83,7 @@ public class NewRotate : MonoBehaviour
 		if(facePosition == 0.0f){middleRotation = true;}
 
 		ParentObject = GameObject.FindGameObjectWithTag(hitParentTag);
-		Debug.Log(hitParentTag);
+		//Debug.Log(hitParentTag);
 		
 		if (!isRotating)
 		{

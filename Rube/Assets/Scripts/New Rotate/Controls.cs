@@ -6,7 +6,28 @@
 using UnityEngine;
 using System.Collections;
 
-public class Controls : MonoBehaviour {
+[AddComponentMenu("Scripts/Controls")]
+
+public class Controls : MonoBehaviour
+{
+	// Enum
+	public enum CubeHit // Depth, Height, Width (Z, Y, X)
+	{
+		// Front Slice
+		FrontTopLeft, FrontTopCentre, FrontTopRight,
+		FrontCentreLeft, FrontCentreCentre, FrontCentreRight,
+		FrontBottomLeft, FrontBottomCentre, FrontBottomRight,
+		
+		// Centre Slice
+		CentreTopLeft, CentreTopCentre, CentreTopRight,
+		CentreCentreLeft, CentreCentreCentre, CentreCentreRight,
+		CentreBottomLeft, CentreBottomCentre, CentreBottomRight,
+		
+		// Back Slice
+		BackTopLeft, BackTopCentre, BackTopRight,
+		BackCentreLeft, BackCentreCentre, BackCentreRight,
+		BackBottomLeft, BackBottomCentre, BackBottomRight
+	}
 
 	// Public
 
@@ -19,24 +40,7 @@ public class Controls : MonoBehaviour {
 	private Vector3 rotationVector;
 	private float facePosition;
 
-	// Enum
-	enum CubeHit // Depth, Height, Width (Z, Y, X)
-	{
-		// Front Slice
-		FrontTopLeft, FrontTopCentre, FrontTopRight,
-		FrontCentreLeft, FrontCentreCentre, FrontCentreRight,
-		FrontBottomLeft, FrontBottomCentre, FrontBottomRight,
-
-		// Centre Slice
-		CentreTopLeft, CentreTopCentre, CentreTopRight,
-		CentreCentreLeft, CentreCentreCentre, CentreCentreRight,
-		CentreBottomLeft, CentreBottomCentre, CentreBottomRight,
-
-		// Back Slice
-		BackTopLeft, BackTopCentre, BackTopRight,
-		BackCentreLeft, BackCentreCentre, BackCentreRight,
-		BackBottomLeft, BackBottomCentre, BackBottomRight
-	}
+	private CubeHit cubeHit;
 
 	// Methods
 	// Use this for initialization
@@ -62,8 +66,199 @@ public class Controls : MonoBehaviour {
 					//Debug.Log(hit.transform.gameObject.tag + " Hit");
 					Debug.Log("X: " + (hit.transform.position.x - hit.transform.parent.transform.position.x) + " Y: " + (hit.transform.position.y - hit.transform.parent.transform.position.y) + " Z: " + (hit.transform.position.z - hit.transform.parent.transform.position.z));
 
+					// Logic to calculate which cube has been hit (Remove face hit logic once complete and working correctly) (Z, Y, X)
+					// Z axis is negative towards the camera
+					// Front(Z)
+					if(hit.transform.position.z - hit.transform.parent.transform.position.z == -2.0)		
+					{
+						// Top(Y)
+						if(hit.transform.position.y - hit.transform.parent.transform.position.y == 2.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.FrontTopLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.FrontTopCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.FrontTopRight;
+							}
+						}
+						// Centre(Y)
+						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.FrontCentreLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.FrontCentreCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.FrontCentreRight;
+							}
+						}
+						// Bottom(Y)
+						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == -2.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.FrontBottomLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.FrontBottomCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.FrontBottomRight;
+							}
+						}
+					}
+					// Centre(Z)
+					else if(hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0)
+					{
+						// Top(Y)
+						if(hit.transform.position.y - hit.transform.parent.transform.position.y == 2.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.CentreTopLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.CentreTopCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.CentreTopRight;
+							}
+						}
+						// Centre(Y)
+						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.CentreCentreLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.CentreCentreCentre;
+								Debug.Log("You're not supposed to do this");
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.CentreCentreRight;
+							}
+						}
+						// Bottom(Y)
+						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == -2.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.CentreBottomLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.CentreBottomCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.CentreBottomRight;
+							}
+						}
+					}
+					// Back(Z)
+					else if(hit.transform.position.z - hit.transform.parent.transform.position.z == 2.0)
+					{
+						// Top(Y)
+						if(hit.transform.position.y - hit.transform.parent.transform.position.y == 2.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.BackTopLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.BackTopCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.BackTopRight;
+							}
+						}
+						// Centre(Y)
+						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.BackCentreLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.BackCentreCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.BackCentreRight;
+							}
+						}
+						// Bottom(Y)
+						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == -2.0)
+						{
+							// Left(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							{
+								cubeHit = CubeHit.BackBottomLeft;
+							}
+							// Centre(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							{
+								cubeHit = CubeHit.BackBottomCentre;
+							}
+							// Right(X)
+							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							{
+								cubeHit = CubeHit.BackBottomRight;
+							}
+						}
+					}
+
+					Debug.Log("Cube Hit: " + cubeHit);
+
+
+					// Remove this later - Stuart
 					// Logic to calculate which face has been hit
-					if((hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0f) && (hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0f))
+					/*if((hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0f) && (hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0f))
 					{
 						faceHit = 'x';
 						Debug.Log ("X");
@@ -93,8 +288,9 @@ public class Controls : MonoBehaviour {
 					else
 					{
 						//return;
-					}
+					}*/
 
+					// This may need fixed to accomodate new code written above - Stuart
 					// Select cube here
 					// If tag "Cube"
 					if ((hit.transform.gameObject.tag == "Cube") || ((hit.transform.gameObject.tag == "Cube2")) || ((hit.transform.gameObject.tag == "Cube3")))
@@ -119,7 +315,13 @@ public class Controls : MonoBehaviour {
 	// Used to rotate the camera
 	void RotateCamera()
 	{
+		// Do nothing
+	}
 
+	// Getter for cubeHit
+	public CubeHit getCubeHit()
+	{
+		return cubeHit;
 	}
 	
 	// Update is called once per frame

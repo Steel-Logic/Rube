@@ -1,6 +1,12 @@
-﻿
+﻿// Written by Stuart McEwan - 1302856
+// Steel Logic
+// Rube
+// Gesture.cs
+
 using UnityEngine;
 using System.Collections;
+
+[AddComponentMenu("Scripts/Gesture")]
 
 public class Gesture : MonoBehaviour
 {
@@ -43,8 +49,8 @@ public class Gesture : MonoBehaviour
 			mouseDown = false;
 			xPosDifference = mouseUpPosition.x - mouseDownPosition.x;
 			yPosDifference = mouseUpPosition.y - mouseDownPosition.y;
-			//Debug.Log ("Mouse Down Position (" + mouseDownPosition.x.ToString() + ", " + mouseDownPosition.y.ToString() + ")");
-			//Debug.Log ("Mouse Up Position (" + mouseUpPosition.x.ToString() + ", " + mouseUpPosition.y.ToString() + ")");
+			// Debug.Log ("Mouse Down Position (" + mouseDownPosition.x.ToString() + ", " + mouseDownPosition.y.ToString() + ")");
+			// Debug.Log ("Mouse Up Position (" + mouseUpPosition.x.ToString() + ", " + mouseUpPosition.y.ToString() + ")");
 		}
 
 		if (gestureReturned == false)
@@ -75,7 +81,7 @@ public class Gesture : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log("Invalid Gesture");
+				// Debug.Log("Invalid Gesture");
 				gestureReturned = true;
 				return "Invalid";
 			}
