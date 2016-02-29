@@ -10,33 +10,21 @@ using System.Collections;
 
 public class NewRotate : MonoBehaviour
 {	
-	
 	// Enum
-	/*public enum FaceRotating // Used to choose which face of the cube should be rotating
-	{
-		NONE, FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM, MIDDLEX, MIDDLEY, MIDDLEZ
-	};*/
-	
-	/*public enum AxisRotating // Used to choose which axis a face of the cube should be rotating around
-	{
-		NONE, X, Y, Z
-	};*/
-	
-	public bool isRotating;
-	
+
 	// Public
+	public bool isRotating;
 	public float rotationSpeed;
 	
 	// Private
 	private GameObject ParentObject;
-
 	private char AxisRotating;	
-
 	private GameObject[] face;
 	private GameObject[] cube;
 	private GameObject[] obstacle;
 	private GameObject pivotPoint;
-	public double rotationCounter;
+	private double rotationCounter;
+
 	private double playerRotationCounter;
 	private bool playerRotating;
 	private bool middleRotation;
@@ -48,6 +36,10 @@ public class NewRotate : MonoBehaviour
     private char axisRotating;
     private string hitTag, hitParentTag;
 	private Vector3 axisVector;
+
+	// New Rotation Fields (Swipe Gestures)
+	private string gestureType;
+	private Controls.CubeHit cubeHit;
 	
 	// Use this for initialization
 	void Start()
@@ -59,7 +51,7 @@ public class NewRotate : MonoBehaviour
 		
 		rotationCounter = 0;
 
-		//rotationSpeed = 3f;
+		// rotationSpeed = 3f;
 		
 		middleRotation = false;
 		playerRotating = false;
@@ -69,8 +61,7 @@ public class NewRotate : MonoBehaviour
 	
 	// Called when the user presses the z key
 	public void RotateFace(Vector3 axisVector_, float facePosition_, char axisRotating_, string hitTag_, string hitParentTag_)
-	{
-	
+	{	
         // Tag all cubes in the rubix cube as "Cube" and fill the cube array with these objects
 		axisVector = axisVector_;
 		facePosition = facePosition_;
@@ -88,6 +79,7 @@ public class NewRotate : MonoBehaviour
 		if (!isRotating)
 		{
 			// Set pivot point to position of centre cube relative to rotating face
+			// Change this code to accomodate creating a new pivot point for cube and gesutre input - Stuart
 			//switch(axisRotating)
 			//{
 			//case 'x':	
@@ -96,8 +88,7 @@ public class NewRotate : MonoBehaviour
 				pivotPoint = new GameObject("pivot");
 				pivotPoint.transform.position = ParentObject.transform.position;
 				pivotPoint.transform.parent = ParentObject.transform;
-				pivotPoint.transform.localPosition = new Vector3(facePosition, 0.0f, 0.0f); // (facePosition, 0.0f, 1.0f);
-				
+				pivotPoint.transform.localPosition = new Vector3(facePosition, 0.0f, 0.0f); // (facePosition, 0.0f, 1.0f);				
 			}
 			//break;
 			//case 'y':	
@@ -106,8 +97,7 @@ public class NewRotate : MonoBehaviour
 				pivotPoint = new GameObject("pivot");
 				pivotPoint.transform.position = ParentObject.transform.position;
 				pivotPoint.transform.parent = ParentObject.transform;
-				pivotPoint.transform.localPosition = new Vector3(0.0f, facePosition, 0.0f); // (1.0f, facePosition, 1.0f);
-				
+				pivotPoint.transform.localPosition = new Vector3(0.0f, facePosition, 0.0f); // (1.0f, facePosition, 1.0f);				
 			}
 			//break;
 			//case 'z':
@@ -116,8 +106,7 @@ public class NewRotate : MonoBehaviour
 				pivotPoint = new GameObject("pivot");
 				pivotPoint.transform.position = ParentObject.transform.position;
 				pivotPoint.transform.parent = ParentObject.transform;
-				pivotPoint.transform.localPosition = new Vector3(0.0f, 0.0f, facePosition); // (1.0f, 0.0f, facePosition);
-				
+				pivotPoint.transform.localPosition = new Vector3(0.0f, 0.0f, facePosition); // (1.0f, 0.0f, facePosition);			
 			}
 			//break;
 			//}
@@ -125,35 +114,115 @@ public class NewRotate : MonoBehaviour
 
 		for(int i = 0; i < 26; i++)
 		{
-			switch(axisRotating)
+			/*switch(axisRotating)
 			{
-			/*case AxisRotating.NONE:
-				break;*/
-			case 'x':
-				if((cube[i].transform.localPosition.x >= facePosition - 0.1)&&(cube[i].transform.localPosition.x <= facePosition + 0.1))
-				{
-					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
-					rotationCounter+=rotationSpeed;
-				}
+				case 'x':
+					if((cube[i].transform.localPosition.x >= facePosition - 0.1)&&(cube[i].transform.localPosition.x <= facePosition + 0.1))
+					{
+						cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
+						rotationCounter+=rotationSpeed;
+					}
 
+					break;
+				case 'y':
+					if((cube[i].transform.localPosition.y >= facePosition - 0.1)&&(cube[i].transform.localPosition.y <= facePosition + 0.1))
+					{	
+						cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
+						rotationCounter+=rotationSpeed;
+					}
+			
+					break;
+				case 'z':
+					if((cube[i].transform.localPosition.z >= facePosition - 0.1)&&(cube[i].transform.localPosition.z <= facePosition + 0.1))
+					{
+						cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
+						rotationCounter+=rotationSpeed;
+					}             			
+					break;
+	            default:
+	                break;
+			}*/
+
+			switch(cubeHit)
+			{
+			case Controls.CubeHit.FrontTopLeft:			// 01
 				break;
-			case 'y':
-				if((cube[i].transform.localPosition.y >= facePosition - 0.1)&&(cube[i].transform.localPosition.y <= facePosition + 0.1))
-				{	
-					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
-					rotationCounter+=rotationSpeed;
-				}
-		
-				break;
-			case 'z':
-				if((cube[i].transform.localPosition.z >= facePosition - 0.1)&&(cube[i].transform.localPosition.z <= facePosition + 0.1))
+			case Controls.CubeHit.FrontTopCentre:		// 02 - Test on this cube first
+				if(gestureType == "Left")
 				{
-					cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
-					rotationCounter+=rotationSpeed;
-				}             			
+					if((cube[i].transform.localPosition.y >= facePosition - 0.1)&&(cube[i].transform.localPosition.y <= facePosition + 0.1))
+					{	
+						cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
+						rotationCounter+=rotationSpeed;
+					}
+				}
+				else if(gestureType == "Right")
+				{
+					
+				}
+				else if(gestureType == "Up")
+				{
+					
+				}
+				else if(gestureType == "Down")
+				{
+					
+				}
 				break;
-            default:
-                break;
+			case Controls.CubeHit.FrontTopRight:		// 03
+				break;
+			case Controls.CubeHit.FrontCentreLeft:		// 04
+				break;
+			case Controls.CubeHit.FrontCentreCentre:	// 05
+				break;
+			case Controls.CubeHit.FrontCentreRight:		// 06
+				break;
+			case Controls.CubeHit.FrontBottomLeft:		// 07
+				break;
+			case Controls.CubeHit.FrontBottomCentre:	// 08
+				break;
+			case Controls.CubeHit.FrontBottomRight:		// 09
+				break;
+
+			case Controls.CubeHit.CentreTopLeft:		// 10
+				break;
+			case Controls.CubeHit.CentreTopCentre:		// 11
+				break;
+			case Controls.CubeHit.CentreTopRight:		// 12
+				break;
+			case Controls.CubeHit.CentreCentreLeft:		// 13
+				break;
+			case Controls.CubeHit.CentreCentreCentre:	// 14
+				break;
+			case Controls.CubeHit.CentreCentreRight:	// 15
+				break;
+			case Controls.CubeHit.CentreBottomLeft:		// 16
+				break;
+			case Controls.CubeHit.CentreBottomCentre:	// 17
+				break;
+			case Controls.CubeHit.CentreBottomRight:	// 18
+				break;
+
+			case Controls.CubeHit.BackTopLeft:			// 19
+				break;
+			case Controls.CubeHit.BackTopCentre:		// 20
+				break;
+			case Controls.CubeHit.BackTopRight:			// 21
+				break;
+			case Controls.CubeHit.BackCentreLeft:		// 22
+				break;
+			case Controls.CubeHit.BackCentreCentre:		// 23
+				break;
+			case Controls.CubeHit.BackCentreRight:		// 24
+				break;
+			case Controls.CubeHit.BackBottomLeft:		// 25
+				break;
+			case Controls.CubeHit.BackBottomCentre:		// 26
+				break;
+			case Controls.CubeHit.BackBottomRight:		// 27
+				break;
+			default:									// DEFAULT
+				break;
 			}
 			
 			if (middleRotation == false) {
@@ -191,11 +260,25 @@ public class NewRotate : MonoBehaviour
 			}
 		}		
 	}
+
+	// Choose rotation type based on cube clicked and swipe direction
+	void ChooseRotation()
+	{
+
+	}
 	
 	// Update is called once per frame
 	void Update()
 	{	
-
+		if (Input.GetMouseButtonUp(1))
+		{
+			if (isRotating == false)
+			{
+				gestureType = this.GetComponentInParent<Gesture> ().MouseSwipe ();
+				cubeHit = this.GetComponentInParent<Controls> ().GetCubeHit ();
+				Debug.Log(cubeHit.ToString() + " and " + gestureType);
+			}
+		}
 
 		if(isRotating == true)
 		{

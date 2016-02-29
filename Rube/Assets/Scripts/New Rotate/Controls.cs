@@ -63,8 +63,8 @@ public class Controls : MonoBehaviour
 				// Add third parameter "range" as a float to limit range of cast ray (Infinite range for now) - Stuart
 				if (Physics.Raycast (ray, out hit))
 				{
-					//Debug.Log(hit.transform.gameObject.tag + " Hit");
-					Debug.Log("X: " + (hit.transform.position.x - hit.transform.parent.transform.position.x) + " Y: " + (hit.transform.position.y - hit.transform.parent.transform.position.y) + " Z: " + (hit.transform.position.z - hit.transform.parent.transform.position.z));
+					// Debug.Log(hit.transform.gameObject.tag + " Hit");
+					// Debug.Log("X: " + (hit.transform.position.x - hit.transform.parent.transform.position.x) + " Y: " + (hit.transform.position.y - hit.transform.parent.transform.position.y) + " Z: " + (hit.transform.position.z - hit.transform.parent.transform.position.z));
 
 					// Logic to calculate which cube has been hit (Remove face hit logic once complete and working correctly) (Z, Y, X)
 					// Z axis is negative towards the camera
@@ -253,7 +253,7 @@ public class Controls : MonoBehaviour
 						}
 					}
 
-					Debug.Log("Cube Hit: " + cubeHit);
+					// Debug.Log("Cube Hit: " + cubeHit);
 
 
 					// Remove this later - Stuart
@@ -289,6 +289,7 @@ public class Controls : MonoBehaviour
 					{
 						//return;
 					}*/
+					// End Remove ^^
 
 					// This may need fixed to accomodate new code written above - Stuart
 					// Select cube here
@@ -296,10 +297,10 @@ public class Controls : MonoBehaviour
 					if ((hit.transform.gameObject.tag == "Cube") || ((hit.transform.gameObject.tag == "Cube2")) || ((hit.transform.gameObject.tag == "Cube3")))
 					{
 						// Remove any hardcoded values or non dynamic script calling - Stuart
-					   
+						// Debug.Log("Test parent hit " + hit.transform.gameObject.tag);
 						hitTag = hit.transform.gameObject.tag;
 						hitParentTag = hit.transform.root.gameObject.tag;				
-						this.GetComponentInParent<NewRotate>().RotateFace(rotationVector, facePosition, faceHit, hitTag, hitParentTag);
+						// this.GetComponentInParent<NewRotate>().RotateFace(rotationVector, facePosition, faceHit, hitTag, hitParentTag);
 						// hit.collider.gameObject.GetComponent<SomeScript>().SomeFunction();
 						// Call function which selects cube and have a second function called to rotate based on swipe direction
 					}
@@ -319,7 +320,7 @@ public class Controls : MonoBehaviour
 	}
 
 	// Getter for cubeHit
-	public CubeHit getCubeHit()
+	public CubeHit GetCubeHit()
 	{
 		return cubeHit;
 	}

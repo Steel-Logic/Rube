@@ -1903,6 +1903,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 544f456956ecc774684447f993219e3f, type: 2}
+    - target: {fileID: 100000, guid: 567c40079adda2746bfa6262708f50e3, type: 3}
+      propertyPath: m_TagString
+      value: Cube3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 567c40079adda2746bfa6262708f50e3, type: 3}
   m_IsPrefabParent: 0
@@ -3834,7 +3838,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 121688, guid: 71392ba712127ce48a2a8fab764fe2d5, type: 2}
       propertyPath: m_TagString
-      value: Untagged
+      value: ParentCube2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11407032, guid: 71392ba712127ce48a2a8fab764fe2d5, type: 2}
@@ -5703,7 +5707,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRotating: 0
   rotationSpeed: 3
-  rotationCounter: 0
 --- !u!114 &1132003996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9774,7 +9777,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 121688, guid: 71392ba712127ce48a2a8fab764fe2d5, type: 2}
       propertyPath: m_TagString
-      value: Untagged
+      value: ParentCube3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11407032, guid: 71392ba712127ce48a2a8fab764fe2d5, type: 2}

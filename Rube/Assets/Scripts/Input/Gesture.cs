@@ -35,7 +35,7 @@ public class Gesture : MonoBehaviour
 		}
 	}
 
-	public string MouseSwipe()
+	public string MouseSwipe() // Recognises a left, right, up or down swipe gesture (No diagonals)
 	{
 		if((Input.GetMouseButtonDown(1)) && !mouseDown)
 		{
@@ -49,33 +49,31 @@ public class Gesture : MonoBehaviour
 			mouseDown = false;
 			xPosDifference = mouseUpPosition.x - mouseDownPosition.x;
 			yPosDifference = mouseUpPosition.y - mouseDownPosition.y;
-			// Debug.Log ("Mouse Down Position (" + mouseDownPosition.x.ToString() + ", " + mouseDownPosition.y.ToString() + ")");
-			// Debug.Log ("Mouse Up Position (" + mouseUpPosition.x.ToString() + ", " + mouseUpPosition.y.ToString() + ")");
 		}
 
 		if (gestureReturned == false)
 		{
-			if (xPosDifference <= -200)
+			if (xPosDifference <= -100)
 			{
-				Debug.Log("Left Swipe");
+				// Debug.Log("Left Swipe");
 				gestureReturned = true;
 				return "Left";
 			}
-			else if (xPosDifference >= 200)
+			else if (xPosDifference >= 100)
 			{
-				Debug.Log("Right Swipe");
+				// Debug.Log("Right Swipe");
 				gestureReturned = true;
 				return "Right";
 			}
-			else if (yPosDifference >= 200)
+			else if (yPosDifference >= 100)
 			{
-				Debug.Log("Up Swipe");
+				// Debug.Log("Up Swipe");
 				gestureReturned = true;
 				return "Up";
 			}
-			else if (yPosDifference <= -200)
+			else if (yPosDifference <= -100)
 			{
-				Debug.Log("Down Swipe");
+				// Debug.Log("Down Swipe");
 				gestureReturned = true;
 				return "Down";
 			}

@@ -8196,7 +8196,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRotating: 0
   rotationSpeed: 3
-  rotationCounter: 0
 --- !u!114 &414127812
 MonoBehaviour:
   m_ObjectHideFlags: 0
