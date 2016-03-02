@@ -26,7 +26,9 @@ public class Controls : MonoBehaviour
 		// Back Slice
 		BackTopLeft, BackTopCentre, BackTopRight,
 		BackCentreLeft, BackCentreCentre, BackCentreRight,
-		BackBottomLeft, BackBottomCentre, BackBottomRight
+		BackBottomLeft, BackBottomCentre, BackBottomRight,
+
+		NONE
 	}
 
 	// Public
@@ -319,17 +321,25 @@ public class Controls : MonoBehaviour
 		// Do nothing
 	}
 
-	// Getter for cubeHit
-	public CubeHit GetCubeHit()
-	{
-		return cubeHit;
-	}
-	
 	// Update is called once per frame
 	void Update ()
 	{
         TouchSelection();
 	}
 
+	// Getters
+	public CubeHit GetCubeHit()
+	{
+		return cubeHit;
+	}
+	
+	public string GetHitTag()
+	{
+		return hitTag;
+	}
 
+	public string GetHitParentTag()
+	{
+		return hitParentTag;
+	}
 }

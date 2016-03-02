@@ -50,8 +50,6 @@ public class NewRotate : MonoBehaviour
 		face = new GameObject[9];
 		
 		rotationCounter = 0;
-
-		// rotationSpeed = 3f;
 		
 		middleRotation = false;
 		playerRotating = false;
@@ -60,12 +58,12 @@ public class NewRotate : MonoBehaviour
 	}
 	
 	// Called when the user presses the z key
-	public void RotateFace(Vector3 axisVector_, float facePosition_, char axisRotating_, string hitTag_, string hitParentTag_)
+	public void RotateFace(/*Vector3 axisVector_, float facePosition_, char axisRotating_,*/ string hitTag_, string hitParentTag_)
 	{	
         // Tag all cubes in the rubix cube as "Cube" and fill the cube array with these objects
-		axisVector = axisVector_;
-		facePosition = facePosition_;
-        axisRotating = axisRotating_;
+		//axisVector = axisVector_;
+		//facePosition = facePosition_;
+        //axisRotating = axisRotating_;
         hitTag = hitTag_;
 		hitParentTag = hitParentTag_;
 		cube = GameObject.FindGameObjectsWithTag(hitTag);
@@ -76,14 +74,15 @@ public class NewRotate : MonoBehaviour
 		ParentObject = GameObject.FindGameObjectWithTag(hitParentTag);
 		//Debug.Log(hitParentTag);
 		
-		if (!isRotating)
+		/*if (!isRotating)
 		{
 			// Set pivot point to position of centre cube relative to rotating face
 			// Change this code to accomodate creating a new pivot point for cube and gesutre input - Stuart
 			//switch(axisRotating)
 			//{
 			//case 'x':	
-			if (axisRotating == 'x') {
+			if (axisRotating == 'x')
+			{
 				isRotating = true;
 				pivotPoint = new GameObject("pivot");
 				pivotPoint.transform.position = ParentObject.transform.position;
@@ -92,7 +91,8 @@ public class NewRotate : MonoBehaviour
 			}
 			//break;
 			//case 'y':	
-			if (axisRotating == 'y') {
+			if (axisRotating == 'y')
+			{
 				isRotating = true;
 				pivotPoint = new GameObject("pivot");
 				pivotPoint.transform.position = ParentObject.transform.position;
@@ -101,7 +101,8 @@ public class NewRotate : MonoBehaviour
 			}
 			//break;
 			//case 'z':
-			if (axisRotating == 'z') {
+			if (axisRotating == 'z')
+			{
 				isRotating = true;
 				pivotPoint = new GameObject("pivot");
 				pivotPoint.transform.position = ParentObject.transform.position;
@@ -110,7 +111,7 @@ public class NewRotate : MonoBehaviour
 			}
 			//break;
 			//}
-		}
+		}*/
 
 		for(int i = 0; i < 26; i++)
 		{
@@ -150,36 +151,64 @@ public class NewRotate : MonoBehaviour
 			case Controls.CubeHit.FrontTopCentre:		// 02 - Test on this cube first
 				if(gestureType == "Left")
 				{
-					if((cube[i].transform.localPosition.y >= facePosition - 0.1)&&(cube[i].transform.localPosition.y <= facePosition + 0.1))
-					{	
-						cube[i].transform.RotateAround(pivotPoint.transform.position, axisVector, rotationSpeed);
-						rotationCounter+=rotationSpeed;
-					}
+					RotateTopFace(i, -rotationSpeed);
 				}
 				else if(gestureType == "Right")
 				{
-					
+					RotateTopFace(i, rotationSpeed);
 				}
-				else if(gestureType == "Up")
+				else
 				{
-					
-				}
-				else if(gestureType == "Down")
-				{
-					
+					isRotating = false;
 				}
 				break;
 			case Controls.CubeHit.FrontTopRight:		// 03
 				break;
 			case Controls.CubeHit.FrontCentreLeft:		// 04
+				if(gestureType == "Up")
+				{
+					RotateLeftFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateLeftFace(i, -rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.FrontCentreCentre:	// 05
 				break;
 			case Controls.CubeHit.FrontCentreRight:		// 06
+				if(gestureType == "Up")
+				{
+					RotateRightFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateRightFace(i, -rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.FrontBottomLeft:		// 07
 				break;
 			case Controls.CubeHit.FrontBottomCentre:	// 08
+				if(gestureType == "Left")
+				{
+					RotateBottomFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBottomFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.FrontBottomRight:		// 09
 				break;
@@ -221,8 +250,8 @@ public class NewRotate : MonoBehaviour
 				break;
 			case Controls.CubeHit.BackBottomRight:		// 27
 				break;
-			default:									// DEFAULT
-				break;
+			//default:									// DEFAULT
+				//break;
 			}
 			
 			if (middleRotation == false) {
@@ -234,6 +263,8 @@ public class NewRotate : MonoBehaviour
 					Destroy(pivotPoint);
 					rotationCounter = 0;
 					middleRotation = false;
+					cubeHit = Controls.CubeHit.NONE;
+					gestureType = "Null";
 					
 					/*if(pivotPoint)
 					{
@@ -251,6 +282,8 @@ public class NewRotate : MonoBehaviour
 					Destroy(pivotPoint);
 					rotationCounter = 0;
 					middleRotation = false;
+					cubeHit = Controls.CubeHit.NONE;
+					gestureType = "Null";
 					
 					/*if(pivotPoint)
 					{
@@ -261,10 +294,124 @@ public class NewRotate : MonoBehaviour
 		}		
 	}
 
-	// Choose rotation type based on cube clicked and swipe direction
-	void ChooseRotation()
+	// Positive Y (Top Face)
+	void RotateTopFace(int i_, float rotationSpeed_)
 	{
+		int i = i_;
+		float rotationSpeedLocal = rotationSpeed_;
 
+		// Set values for rotation
+		pivotPoint = new GameObject("pivot");
+		pivotPoint.transform.position = ParentObject.transform.position;
+		pivotPoint.transform.parent = ParentObject.transform;
+		pivotPoint.transform.localPosition = new Vector3(0.0f, 1.0f, 0.0f);
+		middleRotation = false;
+		
+		if((cube[i].transform.localPosition.y >= 0.9)&&(cube[i].transform.localPosition.y <= 1.1))
+		{	
+			cube[i].transform.RotateAround(pivotPoint.transform.position, Vector3.down, rotationSpeedLocal);
+			rotationCounter+=rotationSpeed;
+		}
+	}
+
+	// Negative Y (Bottom Face)
+	void RotateBottomFace(int i_, float rotationSpeed_)	
+	{
+		int i = i_;
+		float rotationSpeedLocal = rotationSpeed_;
+		
+		// Set values for rotation
+		pivotPoint = new GameObject("pivot");
+		pivotPoint.transform.position = ParentObject.transform.position;
+		pivotPoint.transform.parent = ParentObject.transform;
+		pivotPoint.transform.localPosition = new Vector3(0.0f, -1.0f, 0.0f);
+		middleRotation = false;
+		
+		if((cube[i].transform.localPosition.y <= -0.9)&&(cube[i].transform.localPosition.y >= -1.1))
+		{	
+			cube[i].transform.RotateAround(pivotPoint.transform.position, Vector3.down, rotationSpeedLocal);
+			rotationCounter+=rotationSpeed;
+		}
+	}
+
+	// Positive Z (Front Face)
+	void RotateFrontFace(int i_, float rotationSpeed_)
+	{
+		int i = i_;
+		float rotationSpeedLocal = rotationSpeed_;
+		
+		// Set values for rotation
+		pivotPoint = new GameObject("pivot");
+		pivotPoint.transform.position = ParentObject.transform.position;
+		pivotPoint.transform.parent = ParentObject.transform;
+		pivotPoint.transform.localPosition = new Vector3(0.0f, 0.0f, 1.0f);
+		middleRotation = false;
+		
+		if((cube[i].transform.localPosition.z >= 0.9)&&(cube[i].transform.localPosition.z <= 1.1))
+		{	
+			cube[i].transform.RotateAround(pivotPoint.transform.position, Vector3.forward, rotationSpeedLocal);
+			rotationCounter+=rotationSpeed;
+		}
+	}
+
+	// Negative Z (Back Face)
+	void RotateBackFace(int i_, float rotationSpeed_)
+	{
+		int i = i_;
+		float rotationSpeedLocal = rotationSpeed_;
+		
+		// Set values for rotation
+		pivotPoint = new GameObject("pivot");
+		pivotPoint.transform.position = ParentObject.transform.position;
+		pivotPoint.transform.parent = ParentObject.transform;
+		pivotPoint.transform.localPosition = new Vector3(0.0f, 0.0f, -1.0f);
+		middleRotation = false;
+		
+		if((cube[i].transform.localPosition.z <= -0.9)&&(cube[i].transform.localPosition.z >= -1.1))
+		{	
+			cube[i].transform.RotateAround(pivotPoint.transform.position, Vector3.forward, rotationSpeedLocal);
+			rotationCounter+=rotationSpeed;
+		}
+	}
+
+	// Positive X (Right Face)
+	void RotateRightFace(int i_, float rotationSpeed_)
+	{
+		int i = i_;
+		float rotationSpeedLocal = rotationSpeed_;
+		
+		// Set values for rotation
+		pivotPoint = new GameObject("pivot");
+		pivotPoint.transform.position = ParentObject.transform.position;
+		pivotPoint.transform.parent = ParentObject.transform;
+		pivotPoint.transform.localPosition = new Vector3(1.0f, 0.0f, 0.0f);
+		middleRotation = false;
+		
+		if((cube[i].transform.localPosition.x >= 0.9)&&(cube[i].transform.localPosition.x <= 1.1))
+		{	
+			cube[i].transform.RotateAround(pivotPoint.transform.position, Vector3.right, rotationSpeedLocal);
+			rotationCounter+=rotationSpeed;
+		}
+	}
+
+	// Negative X (Left Face)
+	void RotateLeftFace(int i_, float rotationSpeed_)
+	{
+		int i = i_;
+		float rotationSpeedLocal = rotationSpeed_;
+		
+		// Set values for rotation
+		pivotPoint = new GameObject("pivot");
+		pivotPoint.transform.position = ParentObject.transform.position;
+		pivotPoint.transform.parent = ParentObject.transform;
+		pivotPoint.transform.localPosition = new Vector3(-1.0f, 0.0f, 0.0f);
+		middleRotation = false;
+		
+		if((cube[i].transform.localPosition.x <= -0.9)&&(cube[i].transform.localPosition.x >= -1.1))
+		{	
+			cube[i].transform.RotateAround(pivotPoint.transform.position, Vector3.right, rotationSpeedLocal);
+			rotationCounter+=rotationSpeed;
+		}
 	}
 	
 	// Update is called once per frame
@@ -277,13 +424,15 @@ public class NewRotate : MonoBehaviour
 				gestureType = this.GetComponentInParent<Gesture> ().MouseSwipe ();
 				cubeHit = this.GetComponentInParent<Controls> ().GetCubeHit ();
 				Debug.Log(cubeHit.ToString() + " and " + gestureType);
+				isRotating = true;
+				RotateFace(this.GetComponentInParent<Controls>().GetHitTag(), this.GetComponentInParent<Controls>().GetHitParentTag());
 			}
 		}
 
 		if(isRotating == true)
 		{
 			// Possibly remove middle "face" rotation (?) - Stuart
-			RotateFace(axisVector, facePosition, axisRotating, hitTag, hitParentTag);
+			RotateFace(hitTag, hitParentTag);
         }
 	}
 }
