@@ -53,6 +53,26 @@ public class Gesture : MonoBehaviour
 
 		if (gestureReturned == false)
 		{
+			if (yPosDifference >= 100 && xPosDifference <= -100)
+			{
+				gestureReturned = true;
+				return "UpLeft";
+			}
+			if (yPosDifference >= 100 && xPosDifference >= 100)
+			{
+				gestureReturned = true;
+				return "UpRight";
+			}
+			if (yPosDifference <= 100 && xPosDifference <= -100)
+			{
+				gestureReturned = true;
+				return "DownLeft";
+			}
+			if (yPosDifference <= 100 && xPosDifference >= 100)
+			{
+				gestureReturned = true;
+				return "DownRight";
+			}
 			if (xPosDifference <= -100)
 			{
 				// Debug.Log("Left Swipe");

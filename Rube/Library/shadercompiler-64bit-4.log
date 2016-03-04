@@ -1,6 +1,40 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-4-5328
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-4-8496
 Cmd: getPlatforms
+Cmd: compileSnippet
+  api=8 type=0 insize=1647 outsize=1918 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=1360 outsize=2169 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=5479 outsize=465 kw=PIXELSNAP_ON ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=1994 outsize=1696 kw=PIXELSNAP_ON ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=1994 outsize=4924 kw=DUMMY ok=1
+Cmd: compileSnippet
+  api=8 type=0 insize=2017 outsize=1593 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=1 insize=2017 outsize=151 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=5604 outsize=1251 kw= ok=1
+Cmd: compileSnippet
+  api=1 type=0 insize=5612 outsize=249 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=5612 outsize=2251 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=5616 outsize=2771 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=0 insize=5617 outsize=2104 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=0 insize=5621 outsize=2641 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=5621 outsize=2901 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=5622 outsize=2901 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=0 insize=4123 outsize=3079 kw= ok=1
+Cmd: compileSnippet
+  api=8 type=1 insize=4123 outsize=5728 kw= ok=1
 Unhandled exception: Readfile from pipe failed. GLE=The pipe has been ended.
 
 
