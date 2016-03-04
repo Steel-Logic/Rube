@@ -144,9 +144,12 @@ public class NewRotate : MonoBehaviour
 	                break;
 			}*/
 
+			// Takes which cube is hit and which gesture is used and rotates the cube appropriately
+			// isRotating as else in if-else statement, more gestures to be added for 3 way rotation - Stuart
 			switch(cubeHit)
 			{
-			case Controls.CubeHit.FrontTopLeft:			// 01
+			case Controls.CubeHit.FrontTopLeft:			// 01 - Start Front Slice
+				isRotating = false;
 				break;
 			case Controls.CubeHit.FrontTopCentre:		// 02 - Test on this cube first
 				if(gestureType == "Left")
@@ -163,6 +166,7 @@ public class NewRotate : MonoBehaviour
 				}
 				break;
 			case Controls.CubeHit.FrontTopRight:		// 03
+				isRotating = false;
 				break;
 			case Controls.CubeHit.FrontCentreLeft:		// 04
 				if(gestureType == "Up")
@@ -179,6 +183,7 @@ public class NewRotate : MonoBehaviour
 				}
 				break;
 			case Controls.CubeHit.FrontCentreCentre:	// 05
+				isRotating = false;
 				break;
 			case Controls.CubeHit.FrontCentreRight:		// 06
 				if(gestureType == "Up")
@@ -195,6 +200,7 @@ public class NewRotate : MonoBehaviour
 				}
 				break;
 			case Controls.CubeHit.FrontBottomLeft:		// 07
+				isRotating = false;
 				break;
 			case Controls.CubeHit.FrontBottomCentre:	// 08
 				if(gestureType == "Left")
@@ -210,48 +216,68 @@ public class NewRotate : MonoBehaviour
 					isRotating = false;
 				}
 				break;
-			case Controls.CubeHit.FrontBottomRight:		// 09
+			case Controls.CubeHit.FrontBottomRight:		// 09 - End Front Slice
+				isRotating = false;
 				break;
 
-			case Controls.CubeHit.CentreTopLeft:		// 10
+			case Controls.CubeHit.CentreTopLeft:		// 10 - Start Centre Slice
+				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreTopCentre:		// 11
+				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreTopRight:		// 12
+				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreCentreLeft:		// 13
+				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreCentreCentre:	// 14
+				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreCentreRight:	// 15
+				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreBottomLeft:		// 16
+				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreBottomCentre:	// 17
+				isRotating = false;
 				break;
-			case Controls.CubeHit.CentreBottomRight:	// 18
+			case Controls.CubeHit.CentreBottomRight:	// 18 - End Centre Slice
+				isRotating = false;
 				break;
 
-			case Controls.CubeHit.BackTopLeft:			// 19
+			case Controls.CubeHit.BackTopLeft:			// 19 - Start Back Slice
+				isRotating = false;
 				break;
 			case Controls.CubeHit.BackTopCentre:		// 20
+				isRotating = false;
 				break;
 			case Controls.CubeHit.BackTopRight:			// 21
+				isRotating = false;
 				break;
 			case Controls.CubeHit.BackCentreLeft:		// 22
+				isRotating = false;
 				break;
 			case Controls.CubeHit.BackCentreCentre:		// 23
+				isRotating = false;
 				break;
 			case Controls.CubeHit.BackCentreRight:		// 24
+				isRotating = false;
 				break;
 			case Controls.CubeHit.BackBottomLeft:		// 25
+				isRotating = false;
 				break;
 			case Controls.CubeHit.BackBottomCentre:		// 26
+				isRotating = false;
 				break;
-			case Controls.CubeHit.BackBottomRight:		// 27
+			case Controls.CubeHit.BackBottomRight:		// 27 - End Front Slice
+				isRotating = false;
 				break;
-			//default:									// DEFAULT
-				//break;
+			default:									// DEFAULT
+				isRotating = false;
+				break;
 			}
 			
 			if (middleRotation == false) {
