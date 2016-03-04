@@ -28,6 +28,14 @@ public class CameraSwapScript : MonoBehaviour {
 				if (script3.startTurning == false) {
 				isometricCamera.enabled = !isometricCamera.enabled;
 				playerCamera.enabled = !playerCamera.enabled;
+					if ((isometricCamera.enabled == true) && (playerCamera.enabled == true)) {
+						playerCamera.enabled = true;
+						isometricCamera.enabled = false;					
+					}
+					if ((isometricCamera.enabled == false) && (playerCamera.enabled == false)) {
+						playerCamera.enabled = true;
+						isometricCamera.enabled = false;;
+					}
 				}
 			}
 		}

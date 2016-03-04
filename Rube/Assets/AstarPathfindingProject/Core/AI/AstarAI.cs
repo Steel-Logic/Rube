@@ -17,8 +17,8 @@ public class AstarAI : MonoBehaviour
 	protected CharacterController controller;
 
 	//get camera
-	public Camera isometricCamera;
-	public Camera playerCamera;
+	private Camera isometricCamera;
+	private Camera playerCamera;
 
 	//get teleporter scipt
 	public TeleportScript script;
@@ -39,6 +39,7 @@ public class AstarAI : MonoBehaviour
 
 	private Vector3 previousLocation;
 	private Vector3 currentLocation;
+	private Vector3 direction;
 
 	//
 	// New
@@ -55,6 +56,7 @@ public class AstarAI : MonoBehaviour
 		//Get references to attached components
 		seeker = GetComponent<Seeker> ();
 		controller = GetComponent<CharacterController> ();
+		direction = new Vector3(0,0,0);
 
 		//camera stuff
 		playerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera").GetComponent<Camera>();
@@ -122,11 +124,13 @@ public class AstarAI : MonoBehaviour
 
 		previousLocation = currentLocation;    
 		currentLocation = transform.position;
-		if ((transform.position - previousLocation) != new Vector3 (0, 0, 0)) {
+		if ((transform.position - previousLocation) != new Vector3(0,0,0)) {
 			transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.LookRotation (transform.position - previousLocation), Time.fixedDeltaTime * rotationSpeed);
 		}
 		//Direction to the next waypoint
-		Vector3 direction = (path.vectorPath [currentWayPoint] - transform.position).normalized;
+		if ((path.vectorPath [currentWayPoint] - transform.position) != new Vector3 (0, 0, 0)) {
+			direction = (path.vectorPath [currentWayPoint] - transform.position).normalized;
+		}
 		direction *= speed * Time.deltaTime;
 		controller.SimpleMove (direction);
 

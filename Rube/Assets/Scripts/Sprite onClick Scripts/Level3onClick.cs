@@ -19,7 +19,7 @@ public class Level3onClick : MonoBehaviour {
 			if(hitInfo)
 			{
 				if(hitInfo.transform.gameObject.name == this.gameObject.name) {
-					Application.LoadLevel("Final level light test");
+					Application.LoadLevel("Level 3");
 				}
 			}
 	

@@ -4,6 +4,7 @@ using System.Collections;
 public class MouseClickCameraMove : MonoBehaviour
 {
     public float dragSpeed = 2f;
+	public int rotateSpeed;
     private Vector3 dragOrigin;
    
     public bool cameraDragging = true;
@@ -60,13 +61,13 @@ public class MouseClickCameraMove : MonoBehaviour
 
 			if (cameraDragging) {
                       
-				if (Input.mousePosition.x < dragOrigin.x) {
+				if (Input.mousePosition.x+100 < dragOrigin.x) {
 					if (startTurning == false) {
 						turningLeft = true;
 						turningRight = false;
 					}
 				}
-				if (Input.mousePosition.x > dragOrigin.x) {
+				if (Input.mousePosition.x-100 > dragOrigin.x) {
 					if (startTurning == false) {
 						turningRight = true;
 						turningLeft = false;
@@ -96,8 +97,8 @@ public class MouseClickCameraMove : MonoBehaviour
 				if ((script.PlayerFinishedTeleport == true) && (script2.PlayerFinishedTeleport == true)) {
 					if (turningRight) {
 						if (counter < 90) {
-							transform.RotateAround (target.position, target.up, 1);
-							counter++;
+							transform.RotateAround (target.position, target.up, rotateSpeed);
+							counter = counter + rotateSpeed;
 						}
 						if (counter == 90) {
 							turningLeft = false;
@@ -110,8 +111,8 @@ public class MouseClickCameraMove : MonoBehaviour
 					}
 					if (turningLeft) {
 						if (counter < 90) {
-							transform.RotateAround (target.position, target.up, -1);
-							counter++;
+							transform.RotateAround (target.position, target.up, -rotateSpeed);
+							counter = counter + rotateSpeed;
 						}
 						if (counter == 90) {
 							turningRight = false;

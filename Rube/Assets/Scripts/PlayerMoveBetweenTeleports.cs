@@ -8,6 +8,9 @@ public class PlayerMoveBetweenTeleports : MonoBehaviour {
 	public GameObject Player;
 	
 	public Camera IsometricCameraSeePlayer;
+	public Camera PlayerCameraSeePlayer;
+	public Camera IsometricCamera;
+	public Camera PlayerCamera;
 	
 	public TeleportScript script;
 	public HasPlayerFinishedTeleport script2;
@@ -29,8 +32,17 @@ public class PlayerMoveBetweenTeleports : MonoBehaviour {
 	void Update () {	
 		if (script.PlayerMoving == true) {
 			if (PlayerStartedMoving == false) {
-				
-				IsometricCameraSeePlayer.enabled = true;
+
+				if (IsometricCamera.enabled == true) {
+					IsometricCameraSeePlayer.enabled = true;
+					PlayerCameraSeePlayer.enabled = false;
+					PlayerCamera.enabled = false;
+				}
+				if (PlayerCamera.enabled == true) {
+					PlayerCameraSeePlayer.enabled = true;
+					IsometricCameraSeePlayer.enabled = false;
+					IsometricCamera.enabled = false;
+				}
 
 				Vector3 distance = new Vector3(
 				TeleporterStart.transform.position.x - TeleporterEnd.transform.position.x,
@@ -53,7 +65,8 @@ public class PlayerMoveBetweenTeleports : MonoBehaviour {
 					script3.targetPosition = TeleporterEnd.transform.position;
 					PlayerStartedMoving = false;
 					script.PlayerMoving = false;
-					IsometricCameraSeePlayer.enabled = false;;
+					IsometricCameraSeePlayer.enabled = false;
+					PlayerCameraSeePlayer.enabled = false;
 				}
 			}
 		}
