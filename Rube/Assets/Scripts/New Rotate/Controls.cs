@@ -57,8 +57,9 @@ public class Controls : MonoBehaviour
 		if (this.GetComponentInParent<NewRotate>().isRotating == false)
 		{
 			// Currently right click, change to left click once control modes are created - Stuart
-			if (Input.GetMouseButtonDown(1))
+			if (Input.GetMouseButtonDown(0))
 			{
+				cubeHit = CubeHit.NONE;
 				//ray = new Ray (transform.position, transform.forward);
 				ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -71,184 +72,184 @@ public class Controls : MonoBehaviour
 					// Logic to calculate which cube has been hit (Remove face hit logic once complete and working correctly) (Z, Y, X)
 					// Z axis is negative towards the camera
 					// Front(Z)
-					if(hit.transform.position.z - hit.transform.parent.transform.position.z == -2.0)		
+					if((hit.transform.position.z - hit.transform.parent.transform.position.z) >= -2.1 && (hit.transform.position.z - hit.transform.parent.transform.position.z) <= -1.9)		
 					{
 						// Top(Y)
-						if(hit.transform.position.y - hit.transform.parent.transform.position.y == 2.0)
+						if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= 1.9 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= 2.1)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.FrontTopLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.FrontTopCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.FrontTopRight;
 							}
 						}
 						// Centre(Y)
-						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0)
+						else if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= -0.1 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= 0.1)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.FrontCentreLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.FrontCentreCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.FrontCentreRight;
 							}
 						}
 						// Bottom(Y)
-						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == -2.0)
+						else if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= -2.1 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= -1.9)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.FrontBottomLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.FrontBottomCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.FrontBottomRight;
 							}
 						}
 					}
 					// Centre(Z)
-					else if(hit.transform.position.z - hit.transform.parent.transform.position.z == 0.0)
+					else if((hit.transform.position.z - hit.transform.parent.transform.position.z) >= -0.1 && (hit.transform.position.z - hit.transform.parent.transform.position.z) <= 0.1)
 					{
 						// Top(Y)
-						if(hit.transform.position.y - hit.transform.parent.transform.position.y == 2.0)
+						if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= 1.9 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= 2.1)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.CentreTopLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.CentreTopCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.CentreTopRight;
 							}
 						}
 						// Centre(Y)
-						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0)
+						else if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= -0.1 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= 0.1)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.CentreCentreLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.CentreCentreCentre;
 								Debug.Log("You're not supposed to do this");
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.CentreCentreRight;
 							}
 						}
 						// Bottom(Y)
-						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == -2.0)
+						else if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= -2.1 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= -1.9)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.CentreBottomLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.CentreBottomCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.CentreBottomRight;
 							}
 						}
 					}
 					// Back(Z)
-					else if(hit.transform.position.z - hit.transform.parent.transform.position.z == 2.0)
+					else if((hit.transform.position.z - hit.transform.parent.transform.position.z) >= 1.9 && (hit.transform.position.z - hit.transform.parent.transform.position.z) <= 2.1)
 					{
 						// Top(Y)
-						if(hit.transform.position.y - hit.transform.parent.transform.position.y == 2.0)
+						if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= 1.9 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= 2.1)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.BackTopLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.BackTopCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.BackTopRight;
 							}
 						}
 						// Centre(Y)
-						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == 0.0)
+						else if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= -0.1 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= 0.1)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.BackCentreLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.BackCentreCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.BackCentreRight;
 							}
 						}
 						// Bottom(Y)
-						else if(hit.transform.position.y - hit.transform.parent.transform.position.y == -2.0)
+						else if((hit.transform.position.y - hit.transform.parent.transform.position.y) >= -2.1 && (hit.transform.position.y - hit.transform.parent.transform.position.y) <= -1.9)
 						{
 							// Left(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == -2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -2.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= -1.9)
 							{
 								cubeHit = CubeHit.BackBottomLeft;
 							}
 							// Centre(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 0.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= -0.1 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 0.1)
 							{
 								cubeHit = CubeHit.BackBottomCentre;
 							}
 							// Right(X)
-							if(hit.transform.position.x - hit.transform.parent.transform.position.x == 2.0)
+							if((hit.transform.position.x - hit.transform.parent.transform.position.x) >= 1.9 && (hit.transform.position.x - hit.transform.parent.transform.position.x) <= 2.1)
 							{
 								cubeHit = CubeHit.BackBottomRight;
 							}
@@ -310,6 +311,7 @@ public class Controls : MonoBehaviour
 				else
 				{
 					Debug.Log("Miss");
+					cubeHit = CubeHit.NONE;
 				}
 			}
 		}

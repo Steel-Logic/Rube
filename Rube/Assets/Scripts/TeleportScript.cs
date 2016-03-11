@@ -10,7 +10,7 @@ public class TeleportScript : MonoBehaviour {
 	public Camera IsometricCameraPlayer;
 	public AudioSource audio;
 	
-	public MouseClickCameraMove script;
+	public NewRotate script;
 	public HasPlayerFinishedTeleport script2;
 	public AIPath script3;
 

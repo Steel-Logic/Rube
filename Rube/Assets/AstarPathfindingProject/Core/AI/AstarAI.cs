@@ -5,6 +5,7 @@ using System.Collections;
 //error
 //This line should always be present at the top of scripts which use pathfinding
 using Pathfinding;
+[AddComponentMenu("Scripts/Rotate")]
 
 public class AstarAI : MonoBehaviour 
 {
@@ -22,6 +23,7 @@ public class AstarAI : MonoBehaviour
 
 	//get teleporter scipt
 	public TeleportScript script;
+	public Gesture gestureScript;
 
 	//The calculated path
 	protected Path path;
@@ -41,6 +43,8 @@ public class AstarAI : MonoBehaviour
 	private Vector3 currentLocation;
 	private Vector3 direction;
 
+
+
 	//
 	// New
 	//
@@ -50,6 +54,7 @@ public class AstarAI : MonoBehaviour
 	protected float minMoveScale = 0.05f;
 	protected bool targetReached = false;
 
+	private string gestureType;
 	
 	public void Start()
 	{
@@ -59,7 +64,6 @@ public class AstarAI : MonoBehaviour
 		direction = new Vector3(0,0,0);
 
 		//camera stuff
-		playerCamera = GameObject.FindGameObjectWithTag ("PlayerCamera").GetComponent<Camera>();
 		isometricCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera>();
 
 		//Default value for target position
@@ -85,35 +89,41 @@ public class AstarAI : MonoBehaviour
 	{
 		seeker.pathCallback -= OnPathComplete;
 	}
+	public void MakePath() {
+		Debug.Log("MakePath");
+		//string MyString = gestureScript.MouseSwipe ();
+		AstarPath.active.Scan ();
+		RaycastHit hit;
+		//we need to actually hit an object
+		
+		
+		//if (gestureScript.MouseSwipe() == "Invalid") {
+		if (!Physics.Raycast (isometricCamera.ScreenPointToRay (Input.mousePosition), out hit, 1000)) {
+			return;
+		}
+
+			Debug.Log("Raycast");
+			
+			if (!hit.transform) {
+				return;
+			}
+			targetPosition = hit.point;
+			
+			
+		//Start a new path to the targetPosition, return the result to the OnPathComplete function
+		seeker.StartPath (transform.position, targetPosition, OnPathComplete);
+	}
 	public void Update()
 	{
-
 		if(path == null)
 		{
 			//We have no path to move after yet
 			return;
 		}
 		//MOUSE CLICKS
-		if (Input.GetMouseButtonDown (0)) {
-	
-			AstarPath.active.Scan ();
-			RaycastHit hit;
-			//we need to actually hit an object
+		if (Input.GetMouseButtonUp (0)) {
+		
 
-			if (playerCamera.enabled) {
-				if (!Physics.Raycast (playerCamera.ScreenPointToRay (Input.mousePosition), out hit, 1000)) {
-					return;
-				}
-				if (!hit.transform) {
-					return;
-				}
-				targetPosition = hit.point;
-
-			}			
-					
-
-			//Start a new path to the targetPosition, return the result to the OnPathComplete function
-			seeker.StartPath (transform.position, targetPosition, OnPathComplete);
 		}
 		//if (currentWayPoint >= path.vectorPath.Count) 
 		//{
