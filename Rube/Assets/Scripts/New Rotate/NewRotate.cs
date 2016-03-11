@@ -14,7 +14,16 @@ public class NewRotate : MonoBehaviour
 
 	// Public
 	public bool isRotating;
+	public bool isCameraRotating = false;
+	public bool cameraDragging = true;
+	public bool turningLeft = false;
+	public bool turningRight = false;
+	public bool startTurning = false;
 	public float rotationSpeed;
+	public int CamerarotateSpeed;
+	public int cameraPosition;
+
+	public Transform target;
 	
 	// Private
 	private GameObject ParentObject;
@@ -24,6 +33,8 @@ public class NewRotate : MonoBehaviour
 	private GameObject[] obstacle;
 	private GameObject pivotPoint;
 	private double rotationCounter;
+
+	public int counter = 0;
 
 	private double playerRotationCounter;
 	private bool playerRotating;
@@ -40,11 +51,17 @@ public class NewRotate : MonoBehaviour
 	// New Rotation Fields (Swipe Gestures)
 	private string gestureType;
 	private Controls.CubeHit cubeHit;
+
+	new Camera myCamera;
+
 	
 	// Use this for initialization
 	void Start()
 	{
 		obstacle = GameObject.FindGameObjectsWithTag("Obstacle");
+
+		myCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera>();
+		cameraPosition = 1;
 
 		// 9 cubes per face
 		face = new GameObject[9];
@@ -56,6 +73,81 @@ public class NewRotate : MonoBehaviour
 		isRotating = false;
 		//faceRotating = FaceRotating.NONE;
 	}
+
+	public int GetCameraPosition() {
+		return cameraPosition;
+	}
+
+	public void RotateCamera()
+	{
+		if (myCamera.isActiveAndEnabled) {
+
+				if (gestureType == "Left") {
+					if (startTurning == false) {
+						turningLeft = true;
+						turningRight = false;
+						startTurning = true;
+						;
+					}
+				}
+				if (gestureType == "Right") {
+					if (startTurning == false) {
+						turningRight = true;
+						turningLeft = false;
+						startTurning = true;
+						;
+					}
+				}
+							
+				//transform.RotateAround(target.position, target.right, pos.y * dragSpeed);
+				
+				//transform.LookAt (target);        
+				
+			if (startTurning == true) {
+
+				isCameraRotating = true;
+
+					if (turningRight) {
+
+						if (counter < 90) {
+							myCamera.transform.RotateAround (target.position, target.up, CamerarotateSpeed);
+							counter = counter + CamerarotateSpeed;
+						}
+						if (counter == 90) {
+							turningLeft = false;
+							startTurning = false;
+							isCameraRotating = false;
+							cameraPosition = cameraPosition - 1;
+							counter = 0;
+							
+						}		
+					}
+					if (turningLeft) {
+
+						if (counter < 90) {
+							myCamera.transform.RotateAround (target.position, target.up, -CamerarotateSpeed);
+							counter = counter + CamerarotateSpeed;
+						}
+						if (counter == 90) {
+							turningRight = false;
+							startTurning = false;
+							isCameraRotating = false;
+							cameraPosition = cameraPosition + 1;
+							counter = 0;
+							
+						}
+						
+					}
+					if (cameraPosition > 4) {
+						cameraPosition = 1;
+					}
+					if (cameraPosition < 1) {
+						cameraPosition = 4;
+					}
+					return;
+			}
+		}
+	}
 	
 	// Called when the user presses the z key
 	public void RotateFace(/*Vector3 axisVector_, float facePosition_, char axisRotating_,*/ string hitTag_, string hitParentTag_)
@@ -64,7 +156,11 @@ public class NewRotate : MonoBehaviour
 		//axisVector = axisVector_;
 		//facePosition = facePosition_;
         //axisRotating = axisRotating_;
+
         hitTag = hitTag_;
+		if (hitTag == null) {
+			return;
+		}
 		hitParentTag = hitParentTag_;
 		cube = GameObject.FindGameObjectsWithTag(hitTag);
 		ParentObject = GameObject.FindGameObjectWithTag(hitParentTag);
@@ -149,7 +245,28 @@ public class NewRotate : MonoBehaviour
 			switch(cubeHit)
 			{
 			case Controls.CubeHit.FrontTopLeft:			// 01 - Start Front Slice
-				isRotating = false;
+				// TEMPORARY CODE
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateFrontFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateFrontFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateLeftFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateLeftFace(i, -rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.FrontTopCentre:		// 02 - Test on this cube first
 				if(gestureType == "Left")
@@ -166,7 +283,28 @@ public class NewRotate : MonoBehaviour
 				}
 				break;
 			case Controls.CubeHit.FrontTopRight:		// 03
-				isRotating = false;
+				// TEMPORARY CODE
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateFrontFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateFrontFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateRightFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateRightFace(i, -rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.FrontCentreLeft:		// 04
 				if(gestureType == "Up")
@@ -200,7 +338,28 @@ public class NewRotate : MonoBehaviour
 				}
 				break;
 			case Controls.CubeHit.FrontBottomLeft:		// 07
-				isRotating = false;
+				// TEMPORARY CODE
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateFrontFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateFrontFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateLeftFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateLeftFace(i, -rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.FrontBottomCentre:	// 08
 				if(gestureType == "Left")
@@ -217,17 +376,60 @@ public class NewRotate : MonoBehaviour
 				}
 				break;
 			case Controls.CubeHit.FrontBottomRight:		// 09 - End Front Slice
-				isRotating = false;
+				// TEMPORARY CODE
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateFrontFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateFrontFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateRightFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateRightFace(i, -rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 
 			case Controls.CubeHit.CentreTopLeft:		// 10 - Start Centre Slice
-				isRotating = false;
+				if(gestureType == "Left")
+				{
+					RotateTopFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateTopFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.CentreTopCentre:		// 11
 				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreTopRight:		// 12
-				isRotating = false;
+				if(gestureType == "Left")
+				{
+					RotateTopFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateTopFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.CentreCentreLeft:		// 13
 				isRotating = false;
@@ -239,41 +441,187 @@ public class NewRotate : MonoBehaviour
 				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreBottomLeft:		// 16
-				isRotating = false;
+				if(gestureType == "Left")
+				{
+					RotateBottomFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBottomFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.CentreBottomCentre:	// 17
 				isRotating = false;
 				break;
 			case Controls.CubeHit.CentreBottomRight:	// 18 - End Centre Slice
-				isRotating = false;
+				if(gestureType == "Left")
+				{
+					RotateBottomFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBottomFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 
 			case Controls.CubeHit.BackTopLeft:			// 19 - Start Back Slice
-				isRotating = false;
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateBackFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBackFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateLeftFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateLeftFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.BackTopCentre:		// 20
-				isRotating = false;
+				if(gestureType == "Left")
+				{
+					RotateTopFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateTopFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.BackTopRight:			// 21
-				isRotating = false;
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateBackFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBackFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateRightFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateRightFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.BackCentreLeft:		// 22
-				isRotating = false;
+				if(gestureType == "Up")
+				{
+					RotateLeftFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateLeftFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.BackCentreCentre:		// 23
 				isRotating = false;
 				break;
 			case Controls.CubeHit.BackCentreRight:		// 24
-				isRotating = false;
+				if(gestureType == "Up")
+				{
+					RotateRightFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateRightFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.BackBottomLeft:		// 25
-				isRotating = false;
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateBackFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBackFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateLeftFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateLeftFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.BackBottomCentre:		// 26
-				isRotating = false;
+				if(gestureType == "Left")
+				{
+					RotateBottomFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBottomFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			case Controls.CubeHit.BackBottomRight:		// 27 - End Front Slice
-				isRotating = false;
+				// REMOVE LATER
+				if(gestureType == "Left")
+				{
+					RotateBackFace(i, rotationSpeed);
+				}
+				else if(gestureType == "Right")
+				{
+					RotateBackFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Up")
+				{
+					RotateRightFace(i, -rotationSpeed);
+				}
+				else if(gestureType == "Down")
+				{
+					RotateRightFace(i, rotationSpeed);
+				}
+				else
+				{
+					isRotating = false;
+				}
 				break;
 			default:									// DEFAULT
 				isRotating = false;
@@ -361,7 +709,7 @@ public class NewRotate : MonoBehaviour
 	}
 
 	// Positive Z (Front Face)
-	void RotateFrontFace(int i_, float rotationSpeed_)
+	void RotateBackFace(int i_, float rotationSpeed_)
 	{
 		int i = i_;
 		float rotationSpeedLocal = rotationSpeed_;
@@ -381,7 +729,7 @@ public class NewRotate : MonoBehaviour
 	}
 
 	// Negative Z (Back Face)
-	void RotateBackFace(int i_, float rotationSpeed_)
+	void RotateFrontFace(int i_, float rotationSpeed_)
 	{
 		int i = i_;
 		float rotationSpeedLocal = rotationSpeed_;
@@ -443,22 +791,32 @@ public class NewRotate : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{	
-		if (Input.GetMouseButtonUp(1))
-		{
-			if (isRotating == false)
-			{
-				gestureType = this.GetComponentInParent<Gesture> ().MouseSwipe ();
-				cubeHit = this.GetComponentInParent<Controls> ().GetCubeHit ();
-				Debug.Log(cubeHit.ToString() + " and " + gestureType);
-				isRotating = true;
-				RotateFace(this.GetComponentInParent<Controls>().GetHitTag(), this.GetComponentInParent<Controls>().GetHitParentTag());
-			}
+		if (isCameraRotating == true) {
+			RotateCamera();
 		}
-
 		if(isRotating == true)
 		{
 			// Possibly remove middle "face" rotation (?) - Stuart
 			RotateFace(hitTag, hitParentTag);
-        }
+		}
+		if (Input.GetMouseButtonUp(0))
+		{
+			if (isRotating == false)
+			{
+				gestureType = this.GetComponentInParent<Gesture> ().MouseSwipe ();
+				Debug.Log (gestureType);
+				cubeHit = this.GetComponentInParent<Controls> ().GetCubeHit ();
+				Debug.Log(cubeHit.ToString() + " and " + gestureType);
+
+				if (cubeHit == Controls.CubeHit.NONE) {
+					RotateCamera();
+				}
+				if (cubeHit != Controls.CubeHit.NONE) {
+				Debug.Log("Cubehit != NONE");
+				isRotating = true;
+				RotateFace(this.GetComponentInParent<Controls>().GetHitTag(), this.GetComponentInParent<Controls>().GetHitParentTag());
+				}
+			}
+		}
 	}
 }

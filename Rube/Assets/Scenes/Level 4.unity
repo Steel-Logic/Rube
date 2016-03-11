@@ -3929,6 +3929,10 @@ Prefab:
       propertyPath: m_HDR
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11499886, guid: 84f5571da5230054b99d216b4491de44, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84f5571da5230054b99d216b4491de44, type: 2}
   m_IsPrefabParent: 0
@@ -9206,6 +9210,7 @@ GameObject:
   - 114: {fileID: 414127811}
   - 114: {fileID: 414127810}
   - 114: {fileID: 414127813}
+  - 114: {fileID: 414127814}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -9231,7 +9236,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 414127808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e279d2f3c47c9684cb4e61f0d34dc98d, type: 3}
   m_Name: 
@@ -9251,12 +9256,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 414127808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7b65f553354e1c4e917f69984c7c51a, type: 3}
+  m_Script: {fileID: 11500000, guid: a11ec0ac6c51b4248a5b79fbfc89810c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRotating: 0
-  rotationSpeed: 5
-  rotationCounter: 0
+  script: {fileID: 697388523}
 --- !u!114 &414127812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9265,12 +9268,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 414127808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a58c2a1e1019ca341aa4613395bb0e2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4afd0c863461c764b9ed54a9114b1f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  isRotating: 0
+  isCameraRotating: 0
+  cameraDragging: 1
+  turningLeft: 0
+  turningRight: 0
+  startTurning: 0
+  rotationSpeed: 3
+  CamerarotateSpeed: 3
+  cameraPosition: 0
+  target: {fileID: 414127809}
+  counter: 0
 --- !u!114 &414127813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9288,6 +9299,17 @@ MonoBehaviour:
   sceneStarting: 1
   sceneEnding: 0
   nextScene: 0
+--- !u!114 &414127814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 414127808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ebfcec897ab21049ad0874a9ec7663e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &422057914
 GameObject:
   m_ObjectHideFlags: 0
@@ -9917,7 +9939,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &447227201
 GameObject:
   m_ObjectHideFlags: 0
@@ -25186,6 +25208,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 11441462, guid: 3ab58164d34d8c54d829dd9c184e96d5, type: 2}
+      propertyPath: gestureScript
+      value: 
+      objectReference: {fileID: 414127811}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ab58164d34d8c54d829dd9c184e96d5, type: 2}
   m_IsPrefabParent: 0

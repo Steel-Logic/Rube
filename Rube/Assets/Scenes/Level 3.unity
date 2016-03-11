@@ -1210,6 +1210,14 @@ Prefab:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 11441462, guid: 3ab58164d34d8c54d829dd9c184e96d5, type: 2}
+      propertyPath: gestureScript
+      value: 
+      objectReference: {fileID: 1132003993}
+    - target: {fileID: 2385324, guid: 3ab58164d34d8c54d829dd9c184e96d5, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ab58164d34d8c54d829dd9c184e96d5, type: 2}
   m_IsPrefabParent: 0
@@ -1742,7 +1750,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 438939736}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76b5ec6153a1d55438228df10fe66844, type: 3}
   m_Name: 
@@ -5309,7 +5317,7 @@ MonoBehaviour:
   Player: {fileID: 829091938}
   IsometricCameraPlayer: {fileID: 1062960767}
   audio: {fileID: 491900852}
-  script: {fileID: 1304807160}
+  script: {fileID: 1132003995}
   script2: {fileID: 1225390576}
   script3: {fileID: 829091940}
   PlayerMoving: 0
@@ -6302,11 +6310,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1132003992}
-  - 114: {fileID: 1132003993}
   - 114: {fileID: 1132003994}
+  - 114: {fileID: 1132003997}
   - 114: {fileID: 1132003996}
   - 114: {fileID: 1132003995}
-  - 114: {fileID: 1132003997}
+  - 114: {fileID: 1132003993}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: GameController
@@ -6334,14 +6342,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1132003991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42693458b057388428ce16c236585742, type: 3}
+  m_Script: {fileID: 11500000, guid: a11ec0ac6c51b4248a5b79fbfc89810c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isometricCamera: {fileID: 1304807158}
-  playerCamera: {fileID: 350907992}
-  script3: {fileID: 1304807160}
-  script: {fileID: 1225390576}
-  script2: {fileID: 1612614217}
+  script: {fileID: 829091941}
 --- !u!114 &1132003994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6361,12 +6365,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1132003991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7b65f553354e1c4e917f69984c7c51a, type: 3}
+  m_Script: {fileID: 11500000, guid: 4afd0c863461c764b9ed54a9114b1f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isRotating: 0
+  isCameraRotating: 0
+  cameraDragging: 1
+  turningLeft: 1
+  turningRight: 0
+  startTurning: 0
   rotationSpeed: 3
-  rotationCounter: 0
+  CamerarotateSpeed: 3
+  cameraPosition: 1
+  target: {fileID: 1132003992}
+  counter: 0
 --- !u!114 &1132003996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6375,12 +6387,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1132003991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a58c2a1e1019ca341aa4613395bb0e2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ebfcec897ab21049ad0874a9ec7663e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &1132003997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7113,7 +7122,6 @@ GameObject:
   - 92: {fileID: 1304807157}
   - 124: {fileID: 1304807156}
   - 81: {fileID: 1304807155}
-  - 114: {fileID: 1304807160}
   - 114: {fileID: 1304807161}
   - 114: {fileID: 1304807162}
   - 114: {fileID: 1304807163}
@@ -7200,27 +7208,6 @@ Transform:
   - {fileID: 1064532722}
   m_Father: {fileID: 0}
   m_RootOrder: 11
---- !u!114 &1304807160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1304807154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 704fe43fe5ebf7640a681d2a3c2585a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dragSpeed: 2
-  rotateSpeed: 2
-  cameraDragging: 1
-  turningLeft: 0
-  turningRight: 0
-  startTurning: 0
-  cameraPosition: 0
-  script: {fileID: 1225390576}
-  script2: {fileID: 1612614217}
-  target: {fileID: 1132003992}
 --- !u!114 &1304807161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7694,7 +7681,7 @@ MonoBehaviour:
   Player: {fileID: 829091938}
   IsometricCameraPlayer: {fileID: 1062960767}
   audio: {fileID: 491900852}
-  script: {fileID: 1304807160}
+  script: {fileID: 1132003995}
   script2: {fileID: 1612614217}
   script3: {fileID: 829091940}
   PlayerMoving: 0
