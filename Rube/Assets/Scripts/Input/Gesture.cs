@@ -14,6 +14,8 @@ public class Gesture : MonoBehaviour
 	private float xPosDifference, yPosDifference;
 	private bool mouseDown, gestureReturned;
 
+	public AstarAI script;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -37,73 +39,56 @@ public class Gesture : MonoBehaviour
 
 	public string MouseSwipe() // Recognises a left, right, up or down swipe gesture (No diagonals)
 	{
-		if((Input.GetMouseButtonDown(1)) && !mouseDown)
+		if((Input.GetMouseButtonDown(0)) && !mouseDown)
 		{
 			mouseDownPosition = Input.mousePosition;
 			mouseDown = true;
 		}
-		else if ((Input.GetMouseButtonUp (1)) && mouseDown)
+		else if ((Input.GetMouseButtonUp (0)) && mouseDown)
 		{
 			gestureReturned = false;
 			mouseUpPosition = Input.mousePosition;
 			mouseDown = false;
 			xPosDifference = mouseUpPosition.x - mouseDownPosition.x;
 			yPosDifference = mouseUpPosition.y - mouseDownPosition.y;
+			Debug.Log(xPosDifference + " and " + yPosDifference);
 		}
 
 		if (gestureReturned == false)
 		{
-			if (yPosDifference >= 100 && xPosDifference <= -100)
-			{
-				gestureReturned = true;
-				return "UpLeft";
-			}
-			if (yPosDifference >= 100 && xPosDifference >= 100)
-			{
-				gestureReturned = true;
-				return "UpRight";
-			}
-			if (yPosDifference <= 100 && xPosDifference <= -100)
-			{
-				gestureReturned = true;
-				return "DownLeft";
-			}
-			if (yPosDifference <= 100 && xPosDifference >= 100)
-			{
-				gestureReturned = true;
-				return "DownRight";
-			}
 			if (xPosDifference <= -100)
 			{
-				// Debug.Log("Left Swipe");
+				Debug.Log("Left Swipe");
 				gestureReturned = true;
 				return "Left";
 			}
 			else if (xPosDifference >= 100)
 			{
-				// Debug.Log("Right Swipe");
+				Debug.Log("Right Swipe");
 				gestureReturned = true;
 				return "Right";
 			}
 			else if (yPosDifference >= 100)
 			{
-				// Debug.Log("Up Swipe");
+				Debug.Log("Up Swipe");
 				gestureReturned = true;
 				return "Up";
 			}
 			else if (yPosDifference <= -100)
 			{
-				// Debug.Log("Down Swipe");
+				Debug.Log("Down Swipe");
 				gestureReturned = true;
 				return "Down";
 			}
 			else
 			{
-				// Debug.Log("Invalid Gesture");
+				Debug.Log("Invalid Gesture");
 				gestureReturned = true;
+				script.MakePath();
 				return "Invalid";
 			}
 			gestureReturned = true;
+
 		}
 		return "Null";
 	}
